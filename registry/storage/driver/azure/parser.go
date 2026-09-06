@@ -1,12 +1,5 @@
 package azure
 
-import (
-	"errors"
-	"fmt"
-
-	"github.com/mitchellh/mapstructure"
-)
-
 const (
 	defaultRealm      = "core.windows.net"
 	defaultMaxRetries = 5
@@ -43,26 +36,6 @@ type DriverParameters struct {
 }
 
 func NewParameters(parameters map[string]any) (*DriverParameters, error) {
-	params := DriverParameters{
-		Realm: defaultRealm,
-	}
-	if err := mapstructure.Decode(parameters, &params); err != nil {
-		return nil, err
-	}
-	if params.AccountName == "" {
-		return nil, errors.New("no accountname parameter provided")
-	}
-	if params.Container == "" {
-		return nil, errors.New("no container parameter provider")
-	}
-	if params.ServiceURL == "" {
-		params.ServiceURL = fmt.Sprintf("https://%s.blob.%s", params.AccountName, params.Realm)
-	}
-	if params.MaxRetries == 0 {
-		params.MaxRetries = defaultMaxRetries
-	}
-	if params.RetryDelay == "" {
-		params.RetryDelay = defaultRetryDelay
-	}
-	return &params, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

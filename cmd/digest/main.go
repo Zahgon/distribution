@@ -33,20 +33,9 @@ func init() {
 	log.SetPrefix(os.Args[0] + ": ")
 }
 
-func usage() {
-	fmt.Fprintf(os.Stderr, "usage: %s [files...]\n", os.Args[0])
-	fmt.Fprint(os.Stderr, `
-Calculate the digest of one or more input files, emitting the result
-to standard out. If no files are provided, the digest of stdin will
-be calculated.
+func usage() { _ = "STUB: not implemented"; return }
 
-`)
-	flag.PrintDefaults()
-}
-
-func unsupported() {
-	log.Fatalf("unsupported digest algorithm: %v", algorithm)
-}
+func unsupported() { _ = "STUB: not implemented"; return }
 
 func main() {
 	var jobs []job
@@ -58,7 +47,7 @@ func main() {
 		return
 	}
 
-	var fail bool // if we fail on one item, foul the exit code
+	var fail bool
 	if flag.NArg() > 0 {
 		for _, path := range flag.Args() {
 			fp, err := os.Open(path)
@@ -72,7 +61,7 @@ func main() {
 			jobs = append(jobs, job{name: path, reader: fp})
 		}
 	} else {
-		// just read stdin
+
 		jobs = append(jobs, job{name: "-", reader: os.Stdin})
 	}
 

@@ -6,12 +6,12 @@ import (
 	"context"
 )
 
-// resumeDigest is a noop when resumable digest support is disabled.
 func (bw *blobWriter) resumeDigest(ctx context.Context) error {
-	return errResumableDigestNotAvailable
+	_ = "STUB: not implemented"
+	return nil
 }
 
-// storeHashState is a noop when resumable digest support is disabled.
 func (bw *blobWriter) storeHashState(ctx context.Context) error {
-	return errResumableDigestNotAvailable
+	_ = "STUB: not implemented"
+	return nil
 }

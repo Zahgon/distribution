@@ -7,6 +7,10 @@
 package v3
 
 import (
+	reflect "reflect"
+	sync "sync"
+	unsafe "unsafe"
+
 	expr "cel.dev/expr"
 	_ "github.com/cncf/xds/go/xds/annotations/v3"
 	_ "github.com/envoyproxy/protoc-gen-validate/validate"
@@ -14,9 +18,6 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (

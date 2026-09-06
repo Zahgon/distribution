@@ -247,150 +247,84 @@ const (
 }`
 )
 
-// APIDescriptor exports descriptions of the layout of the v2 registry API.
 var APIDescriptor = struct {
-	// RouteDescriptors provides a list of the routes available in the API.
 	RouteDescriptors []RouteDescriptor
 }{
 	RouteDescriptors: routeDescriptors,
 }
 
-// RouteDescriptor describes a route specified by name.
 type RouteDescriptor struct {
-	// Name is the name of the route, as specified in RouteNameXXX exports.
-	// These names a should be considered a unique reference for a route. If
-	// the route is registered with gorilla, this is the name that will be
-	// used.
 	Name string
 
-	// Path is a gorilla/mux-compatible regexp that can be used to match the
-	// route. For any incoming method and path, only one route descriptor
-	// should match.
 	Path string
 
-	// Entity should be a short, human-readable description of the object
-	// targeted by the endpoint.
 	Entity string
 
-	// Description should provide an accurate overview of the functionality
-	// provided by the route.
 	Description string
 
-	// Methods should describe the various HTTP methods that may be used on
-	// this route, including request and response formats.
 	Methods []MethodDescriptor
 }
 
-// MethodDescriptor provides a description of the requests that may be
-// conducted with the target method.
 type MethodDescriptor struct {
-	// Method is an HTTP method, such as GET, PUT or POST.
 	Method string
 
-	// Description should provide an overview of the functionality provided by
-	// the covered method, suitable for use in documentation. Use of markdown
-	// here is encouraged.
 	Description string
 
-	// Requests is a slice of request descriptors enumerating how this
-	// endpoint may be used.
 	Requests []RequestDescriptor
 }
 
-// RequestDescriptor covers a particular set of headers and parameters that
-// can be carried out with the parent method. Its most helpful to have one
-// RequestDescriptor per API use case.
 type RequestDescriptor struct {
-	// Name provides a short identifier for the request, usable as a title or
-	// to provide quick context for the particular request.
 	Name string
 
-	// Description should cover the requests purpose, covering any details for
-	// this particular use case.
 	Description string
 
-	// Headers describes headers that must be used with the HTTP request.
 	Headers []ParameterDescriptor
 
-	// PathParameters enumerate the parameterized path components for the
-	// given request, as defined in the route's regular expression.
 	PathParameters []ParameterDescriptor
 
-	// QueryParameters provides a list of query parameters for the given
-	// request.
 	QueryParameters []ParameterDescriptor
 
-	// Body describes the format of the request body.
 	Body BodyDescriptor
 
-	// Successes enumerates the possible responses that are considered to be
-	// the result of a successful request.
 	Successes []ResponseDescriptor
 
-	// Failures covers the possible failures from this particular request.
 	Failures []ResponseDescriptor
 }
 
-// ResponseDescriptor describes the components of an API response.
 type ResponseDescriptor struct {
-	// Name provides a short identifier for the response, usable as a title or
-	// to provide quick context for the particular response.
 	Name string
 
-	// Description should provide a brief overview of the role of the
-	// response.
 	Description string
 
-	// StatusCode specifies the status received by this particular response.
 	StatusCode int
 
-	// Headers covers any headers that may be returned from the response.
 	Headers []ParameterDescriptor
 
-	// Fields describes any fields that may be present in the response.
 	Fields []ParameterDescriptor
 
-	// ErrorCodes enumerates the error codes that may be returned along with
-	// the response.
 	ErrorCodes []errcode.ErrorCode
 
-	// Body describes the body of the response, if any.
 	Body BodyDescriptor
 }
 
-// BodyDescriptor describes a request body and its expected content type. For
-// the most  part, it should be example json or some placeholder for body
-// data in documentation.
 type BodyDescriptor struct {
 	ContentType string
 	Format      string
 }
 
-// ParameterDescriptor describes the format of a request parameter, which may
-// be a header, path parameter or query parameter.
 type ParameterDescriptor struct {
-	// Name is the name of the parameter, either of the path component or
-	// query parameter.
 	Name string
 
-	// Type specifies the type of the parameter, such as string, integer, etc.
 	Type string
 
-	// Description provides a human-readable description of the parameter.
 	Description string
 
-	// Required means the field is required when set.
 	Required bool
 
-	// Format is a specifying the string format accepted by this parameter.
 	Format string
 
-	// Regexp is a compiled regular expression that can be used to validate
-	// the contents of the parameter.
 	Regexp *regexp.Regexp
 
-	// Examples provides multiple examples for the values that might be valid
-	// for this parameter.
 	Examples []string
 }
 
@@ -955,10 +889,6 @@ var routeDescriptors = []RouteDescriptor{
 					},
 				},
 			},
-
-			// TODO(stevvooe): We may want to add a PUT request here to
-			// kickoff an upload of a blob, integrated with the blob upload
-			// API.
 		},
 	},
 

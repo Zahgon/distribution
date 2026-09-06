@@ -19,9 +19,6 @@ import (
 )
 
 func main() {
-	// NOTE(milosgajdos): if the only two commands registered
-	// with registry.RootCmd fail they will halt the program
-	// execution and  exit the program with non-zero exit code.
-	// nolint:errcheck
+
 	registry.RootCmd.Execute()
 }

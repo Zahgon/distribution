@@ -7,6 +7,10 @@
 package faultv3
 
 import (
+	reflect "reflect"
+	sync "sync"
+	unsafe "unsafe"
+
 	_ "github.com/cncf/xds/go/udpa/annotations"
 	v32 "github.com/envoyproxy/go-control-plane/envoy/config/route/v3"
 	v31 "github.com/envoyproxy/go-control-plane/envoy/extensions/filters/common/fault/v3"
@@ -16,9 +20,6 @@ import (
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	structpb "google.golang.org/protobuf/types/known/structpb"
 	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (

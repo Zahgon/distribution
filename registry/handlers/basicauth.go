@@ -5,5 +5,6 @@ import (
 )
 
 func basicAuth(r *http.Request) (username, password string, ok bool) {
-	return r.BasicAuth()
+	_ = "STUB: not implemented"
+	return "", "", false
 }

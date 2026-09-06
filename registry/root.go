@@ -22,7 +22,6 @@ func init() {
 	RootCmd.Flags().BoolVarP(&showVersion, "version", "v", false, "show the version and exit")
 }
 
-// RootCmd is the main command for the 'registry' binary.
 var RootCmd = &cobra.Command{
 	Use:   "registry",
 	Short: "`registry`",
@@ -32,7 +31,7 @@ var RootCmd = &cobra.Command{
 			version.PrintVersion()
 			return
 		}
-		// nolint:errcheck
+
 		cmd.Usage()
 	},
 }
@@ -43,7 +42,6 @@ var (
 	quiet          bool
 )
 
-// GCCmd is the cobra command that corresponds to the garbage-collect subcommand
 var GCCmd = &cobra.Command{
 	Use:   "garbage-collect <config>",
 	Short: "`garbage-collect` deletes layers not referenced by any manifests",
@@ -52,7 +50,7 @@ var GCCmd = &cobra.Command{
 		config, err := resolveConfiguration(args)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "configuration error: %v\n", err)
-			// nolint:errcheck
+
 			cmd.Usage()
 			os.Exit(1)
 		}

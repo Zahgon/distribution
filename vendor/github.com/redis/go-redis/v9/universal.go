@@ -79,7 +79,6 @@ type UniversalOptions struct {
 
 	IdentitySuffix string
 	UnstableResp3  bool
-
 }
 
 // Cluster returns cluster options created from the universal options.

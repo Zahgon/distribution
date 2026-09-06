@@ -7,6 +7,10 @@
 package listenerv3
 
 import (
+	reflect "reflect"
+	sync "sync"
+	unsafe "unsafe"
+
 	_ "github.com/cncf/xds/go/udpa/annotations"
 	_ "github.com/cncf/xds/go/xds/annotations/v3"
 	v3 "github.com/envoyproxy/go-control-plane/envoy/config/core/v3"
@@ -15,9 +19,6 @@ import (
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"
 	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (

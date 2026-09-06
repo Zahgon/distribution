@@ -7,6 +7,10 @@
 package http_connection_managerv3
 
 import (
+	reflect "reflect"
+	sync "sync"
+	unsafe "unsafe"
+
 	_ "github.com/cncf/xds/go/udpa/annotations"
 	v32 "github.com/cncf/xds/go/xds/type/matcher/v3"
 	_ "github.com/envoyproxy/go-control-plane/envoy/annotations"
@@ -23,9 +27,6 @@ import (
 	anypb "google.golang.org/protobuf/types/known/anypb"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"
 	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (

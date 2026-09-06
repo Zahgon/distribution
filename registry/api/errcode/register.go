@@ -1,9 +1,7 @@
 package errcode
 
 import (
-	"fmt"
 	"net/http"
-	"sort"
 	"sync"
 )
 
@@ -14,8 +12,6 @@ var (
 )
 
 var (
-	// ErrorCodeUnknown is a generic error that can be used as a last
-	// resort if there is no situation-specific error message that can be used
 	ErrorCodeUnknown = register("errcode", ErrorDescriptor{
 		Value:   "UNKNOWN",
 		Message: "unknown error",
@@ -24,7 +20,6 @@ var (
 		HTTPStatusCode: http.StatusInternalServerError,
 	})
 
-	// ErrorCodeUnsupported is returned when an operation is not supported.
 	ErrorCodeUnsupported = register("errcode", ErrorDescriptor{
 		Value:   "UNSUPPORTED",
 		Message: "The operation is unsupported.",
@@ -33,8 +28,6 @@ var (
 		HTTPStatusCode: http.StatusMethodNotAllowed,
 	})
 
-	// ErrorCodeUnauthorized is returned if a request requires
-	// authentication.
 	ErrorCodeUnauthorized = register("errcode", ErrorDescriptor{
 		Value:   "UNAUTHORIZED",
 		Message: "authentication required",
@@ -45,8 +38,6 @@ var (
 		HTTPStatusCode: http.StatusUnauthorized,
 	})
 
-	// ErrorCodeDenied is returned if a client does not have sufficient
-	// permission to perform an action.
 	ErrorCodeDenied = register("errcode", ErrorDescriptor{
 		Value:   "DENIED",
 		Message: "requested access to the resource is denied",
@@ -55,8 +46,6 @@ var (
 		HTTPStatusCode: http.StatusForbidden,
 	})
 
-	// ErrorCodeUnavailable provides a common error to report unavailability
-	// of a service or endpoint.
 	ErrorCodeUnavailable = register("errcode", ErrorDescriptor{
 		Value:          "UNAVAILABLE",
 		Message:        "service unavailable",
@@ -64,8 +53,6 @@ var (
 		HTTPStatusCode: http.StatusServiceUnavailable,
 	})
 
-	// ErrorCodeTooManyRequests is returned if a client attempts too many
-	// times to contact a service endpoint.
 	ErrorCodeTooManyRequests = register("errcode", ErrorDescriptor{
 		Value:   "TOOMANYREQUESTS",
 		Message: "too many requests",
@@ -78,8 +65,6 @@ var (
 const errGroup = "registry.api.v2"
 
 var (
-	// ErrorCodeDigestInvalid is returned when uploading a blob if the
-	// provided digest does not match the blob contents.
 	ErrorCodeDigestInvalid = register(errGroup, ErrorDescriptor{
 		Value:   "DIGEST_INVALID",
 		Message: "provided digest did not match uploaded content",
@@ -91,7 +76,6 @@ var (
 		HTTPStatusCode: http.StatusBadRequest,
 	})
 
-	// ErrorCodeSizeInvalid is returned when uploading a blob if the provided
 	ErrorCodeSizeInvalid = register(errGroup, ErrorDescriptor{
 		Value:   "SIZE_INVALID",
 		Message: "provided length did not match content length",
@@ -101,8 +85,6 @@ var (
 		HTTPStatusCode: http.StatusBadRequest,
 	})
 
-	// ErrorCodeRangeInvalid is returned when uploading a blob if the provided
-	// content range is invalid.
 	ErrorCodeRangeInvalid = register(errGroup, ErrorDescriptor{
 		Value:   "RANGE_INVALID",
 		Message: "invalid content range",
@@ -112,8 +94,6 @@ var (
 		HTTPStatusCode: http.StatusRequestedRangeNotSatisfiable,
 	})
 
-	// ErrorCodeNameInvalid is returned when the name in the manifest does not
-	// match the provided name.
 	ErrorCodeNameInvalid = register(errGroup, ErrorDescriptor{
 		Value:   "NAME_INVALID",
 		Message: "invalid repository name",
@@ -122,8 +102,6 @@ var (
 		HTTPStatusCode: http.StatusBadRequest,
 	})
 
-	// ErrorCodeTagInvalid is returned when the tag in the manifest does not
-	// match the provided tag.
 	ErrorCodeTagInvalid = register(errGroup, ErrorDescriptor{
 		Value:   "TAG_INVALID",
 		Message: "manifest tag did not match URI",
@@ -132,7 +110,6 @@ var (
 		HTTPStatusCode: http.StatusBadRequest,
 	})
 
-	// ErrorCodeNameUnknown when the repository name is not known.
 	ErrorCodeNameUnknown = register(errGroup, ErrorDescriptor{
 		Value:   "NAME_UNKNOWN",
 		Message: "repository name not known to registry",
@@ -141,7 +118,6 @@ var (
 		HTTPStatusCode: http.StatusNotFound,
 	})
 
-	// ErrorCodeManifestUnknown returned when image manifest is unknown.
 	ErrorCodeManifestUnknown = register(errGroup, ErrorDescriptor{
 		Value:   "MANIFEST_UNKNOWN",
 		Message: "manifest unknown",
@@ -150,9 +126,6 @@ var (
 		HTTPStatusCode: http.StatusNotFound,
 	})
 
-	// ErrorCodeManifestInvalid returned when an image manifest is invalid,
-	// typically during a PUT operation. This error encompasses all errors
-	// encountered during manifest validation that aren't signature errors.
 	ErrorCodeManifestInvalid = register(errGroup, ErrorDescriptor{
 		Value:   "MANIFEST_INVALID",
 		Message: "manifest invalid",
@@ -163,8 +136,6 @@ var (
 		HTTPStatusCode: http.StatusBadRequest,
 	})
 
-	// ErrorCodeManifestUnverified is returned when the manifest fails
-	// signature verification.
 	ErrorCodeManifestUnverified = register(errGroup, ErrorDescriptor{
 		Value:   "MANIFEST_UNVERIFIED",
 		Message: "manifest failed signature verification",
@@ -173,8 +144,6 @@ var (
 		HTTPStatusCode: http.StatusBadRequest,
 	})
 
-	// ErrorCodeManifestBlobUnknown is returned when a manifest blob is
-	// unknown to the registry.
 	ErrorCodeManifestBlobUnknown = register(errGroup, ErrorDescriptor{
 		Value:   "MANIFEST_BLOB_UNKNOWN",
 		Message: "blob unknown to registry",
@@ -183,9 +152,6 @@ var (
 		HTTPStatusCode: http.StatusBadRequest,
 	})
 
-	// ErrorCodeBlobUnknown is returned when a blob is unknown to the
-	// registry. This can happen when the manifest references a nonexistent
-	// layer or the result is not found by a blob fetch.
 	ErrorCodeBlobUnknown = register(errGroup, ErrorDescriptor{
 		Value:   "BLOB_UNKNOWN",
 		Message: "blob unknown to registry",
@@ -196,7 +162,6 @@ var (
 		HTTPStatusCode: http.StatusNotFound,
 	})
 
-	// ErrorCodeBlobUploadUnknown is returned when an upload is unknown.
 	ErrorCodeBlobUploadUnknown = register(errGroup, ErrorDescriptor{
 		Value:   "BLOB_UPLOAD_UNKNOWN",
 		Message: "blob upload unknown to registry",
@@ -205,7 +170,6 @@ var (
 		HTTPStatusCode: http.StatusNotFound,
 	})
 
-	// ErrorCodeBlobUploadInvalid is returned when an upload is invalid.
 	ErrorCodeBlobUploadInvalid = register(errGroup, ErrorDescriptor{
 		Value:   "BLOB_UPLOAD_INVALID",
 		Message: "blob upload invalid",
@@ -214,8 +178,6 @@ var (
 		HTTPStatusCode: http.StatusNotFound,
 	})
 
-	// ErrorCodePaginationNumberInvalid is returned when the `n` parameter is
-	// not an integer, or `n` is negative.
 	ErrorCodePaginationNumberInvalid = register(errGroup, ErrorDescriptor{
 		Value:   "PAGINATION_NUMBER_INVALID",
 		Message: "invalid number of results requested",
@@ -231,66 +193,24 @@ var (
 	registerLock sync.Mutex
 )
 
-// Register will make the passed-in error known to the environment and
-// return a new ErrorCode
 func Register(group string, descriptor ErrorDescriptor) ErrorCode {
-	return register(group, descriptor)
+	_ = "STUB: not implemented"
+	return *new(ErrorCode)
 }
 
-// register will make the passed-in error known to the environment and
-// return a new ErrorCode
 func register(group string, descriptor ErrorDescriptor) ErrorCode {
-	registerLock.Lock()
-	defer registerLock.Unlock()
-
-	descriptor.Code = ErrorCode(nextCode)
-
-	if _, ok := idToDescriptors[descriptor.Value]; ok {
-		panic(fmt.Sprintf("ErrorValue %q is already registered", descriptor.Value))
-	}
-	if _, ok := errorCodeToDescriptors[descriptor.Code]; ok {
-		panic(fmt.Sprintf("ErrorCode %v is already registered", descriptor.Code))
-	}
-
-	groupToDescriptors[group] = append(groupToDescriptors[group], descriptor)
-	errorCodeToDescriptors[descriptor.Code] = descriptor
-	idToDescriptors[descriptor.Value] = descriptor
-
-	nextCode++
-	return descriptor.Code
+	_ = "STUB: not implemented"
+	return *new(ErrorCode)
 }
 
 type byValue []ErrorDescriptor
 
-func (a byValue) Len() int           { return len(a) }
-func (a byValue) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
-func (a byValue) Less(i, j int) bool { return a[i].Value < a[j].Value }
+func (a byValue) Len() int           { _ = "STUB: not implemented"; return 0 }
+func (a byValue) Swap(i, j int)      { _ = "STUB: not implemented"; return }
+func (a byValue) Less(i, j int) bool { _ = "STUB: not implemented"; return false }
 
-// GetGroupNames returns the list of Error group names that are registered
-func GetGroupNames() []string {
-	keys := make([]string, 0, len(groupToDescriptors))
-	for k := range groupToDescriptors {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-	return keys
-}
+func GetGroupNames() []string { _ = "STUB: not implemented"; return nil }
 
-// GetErrorCodeGroup returns the named group of error descriptors
-func GetErrorCodeGroup(name string) []ErrorDescriptor {
-	desc := groupToDescriptors[name]
-	sort.Sort(byValue(desc))
-	return desc
-}
+func GetErrorCodeGroup(name string) []ErrorDescriptor { _ = "STUB: not implemented"; return nil }
 
-// GetErrorAllDescriptors returns a slice of all ErrorDescriptors that are
-// registered, irrespective of what group they're in
-func GetErrorAllDescriptors() []ErrorDescriptor {
-	groups := GetGroupNames()
-	result := make([]ErrorDescriptor, 0, len(groups))
-	for _, group := range groups {
-		result = append(result, GetErrorCodeGroup(group)...)
-	}
-	sort.Sort(byValue(result))
-	return result
-}
+func GetErrorAllDescriptors() []ErrorDescriptor { _ = "STUB: not implemented"; return nil }
